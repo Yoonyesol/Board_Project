@@ -1,4 +1,4 @@
-package com.zleco.boardspring.entity;
+package entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.zleco.boardspring.entity;
+package entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,14 +11,16 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name="Liky")
-@Table(name="Liky")
-public class LikyEntity {
+@Entity(name="Comment")
+@Table(name="Comment")
+public class CommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int likeId;
+    private int commentId;
     private int boardNumber;
     private String userEmail;
-    private String likeUserProfile;
-    private String likeUserNickname;
+    private String commentContent;
+    private String commentWriteDate;
+    private String commentUserProfile;
+    private String commentUserNickname;
 }

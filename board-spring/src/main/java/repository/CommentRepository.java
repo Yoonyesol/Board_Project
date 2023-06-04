@@ -1,7 +1,6 @@
-package com.zleco.boardspring.repository;
+package repository;
 
-import com.zleco.boardspring.entity.CommentEntity;
-import org.apache.el.parser.JJTELParserState;
+import entity.CommentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
