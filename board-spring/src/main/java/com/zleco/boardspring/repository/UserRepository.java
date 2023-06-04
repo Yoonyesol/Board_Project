@@ -1,6 +1,6 @@
-package repository;
+package com.zleco.boardspring.repository;
 
-import entity.UserEntity;
+import com.zleco.boardspring.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
