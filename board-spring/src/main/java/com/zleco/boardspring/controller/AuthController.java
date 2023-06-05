@@ -4,7 +4,6 @@ import com.zleco.boardspring.dto.ResponseDto;
 import com.zleco.boardspring.dto.SignUpDto;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(originPatterns="http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
