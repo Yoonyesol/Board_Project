@@ -1,16 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
-import SignUp from './views/SignUp';
+import Athentication from './views/Athentication';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <SignUp/>
-      </header>
-    </div>
+    <Athentication/>
   );
 }
-
-export default App;

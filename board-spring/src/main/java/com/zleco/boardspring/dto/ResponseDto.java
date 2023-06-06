@@ -17,7 +17,7 @@ public class ResponseDto<D> {
     }
 
     //실패 시 실행할 코드
-    public static <D> ResponseDto<D> setFailed(String message, D data){
+    public static <D> ResponseDto<D> setFailed(String message){
         return ResponseDto.set(false, message, null);
     }
 }

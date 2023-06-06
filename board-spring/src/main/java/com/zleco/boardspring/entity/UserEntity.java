@@ -1,5 +1,6 @@
 package com.zleco.boardspring.entity;
 
+import com.zleco.boardspring.dto.SignUpDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,12 @@ public class UserEntity {
     private String userPhoneNumber;
     private String userAddress;
     private String userProfile;
+
+    public UserEntity(SignUpDto dto){   //생성자 생성
+        this.userEmail = dto.getUserEmail();
+        this.userPassword = dto.getUserPassword();
+        this.userNickname = dto.getUserNickname();
+        this.userPhoneNumber = dto.getUserPhoneNumber();
+        this.userAddress = dto.getUserAddress()+" "+dto.getUserAddressDetail();
+    }
 }
