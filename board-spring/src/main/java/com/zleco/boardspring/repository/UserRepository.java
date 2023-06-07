@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository //해당 클래스를 레파지토리로 사용하겠다.
 public interface UserRepository extends JpaRepository<UserEntity, String> {
+    public boolean existsByUserEmailAndUserPassword(String userEmail, String userPassword);
 }
