@@ -1,8 +1,13 @@
 import './App.css';
-import Athentication from './views/Athentication';
+import SignIn from './views/Athentication/SignIn';
+import SignUp from './views/Athentication/SignUp';
 
 export default function App() {
   return (
-    <Athentication/>
+    <>
+      <SignUp />
+      <SignIn/>
+    </>
+    
   );
 }
