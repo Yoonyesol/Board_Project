@@ -1,8 +1,8 @@
 import { Card, Box, TextField, Button, Typography } from '@mui/material'
-import axios from 'axios';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useCookies } from 'react-cookie';
 import { useUserStore } from '../../../stores';
+import { signInApi } from '../../../apis';
 
 interface Props{
   setAuthView: (setAuthView: boolean) => void,
@@ -17,7 +17,7 @@ export default function SignIn(props: Props) {
 
   const { setAuthView } = props
 
-  const signInHandler = () => {
+  const signInHandler = async () => {
     //검증
     if (userEmail.length === 0 || userPassword.length === 0) {
       alert("이메일과 비밀번호를 입력하세요!");
@@ -27,25 +27,22 @@ export default function SignIn(props: Props) {
     const data = {
       userEmail, userPassword,
     };
-    axios
-      .post("http://localhost:4000/api/auth/signIn", data)
-      .then((response) => {
-        const reseponseData = response.data;
-        console.log(response.data)
-        if (!reseponseData.result) {
-          alert("로그인에 실패했습니다.");
-          return;
-        }
-        const { token, exprTime, user } = reseponseData.data;
-        const expires = new Date();
-        expires.setMilliseconds(expires.getMilliseconds + exprTime);
+
+    const signInResponse = await signInApi(data);
+    if (!signInResponse) {
+      alert("로그인에 실패했습니다.");
+      return;
+    }
+    if (!signInResponse.result) {
+      alert("로그인에 실패했습니다.");
+      return;
+    }
+    const { token, exprTime, user } = signInResponse.data;
+    const expires = new Date();
+    expires.setMilliseconds(expires.getMilliseconds() + exprTime);
         
-        setCookies('token', token, { expires });
-        setUser(user);
-       })
-      .catch((error) => { 
-        alert("로그인에 실패했습니다.");
-      });
+    setCookies('token', token, { expires });
+    setUser(user);
   }
   return (
     <Card sx={{ minWidth: 275, maxWidth: "50vw", padding: 5 }}>
