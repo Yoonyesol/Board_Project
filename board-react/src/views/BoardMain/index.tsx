@@ -1,5 +1,5 @@
 export default function BoardMain() {
   return (
-    <div>BoardMain</div>
+    <div style={{height:"100vh", backgroundColor:"#ffff00"}}>BoardMain</div>
   )
 }

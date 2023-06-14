@@ -25,13 +25,14 @@ export default function MainLayout() {
   useEffect(() => {
     const token = cookies.token;
     if (token) getBoard(token);
-  }, [user]); //user가 바뀔 때마다 실행
+    else setBoardResponse('');  //토큰이 없다면 초기화면으로 돌아온다
+  }, [cookies.token]); //토큰의 상태가 바뀔 때마다 실행
 
   return (
     <>
       <Navigation />
       {/* 빈값이 아니면 BoardMain 실행 */}
-      {boardResponse ? (<BoardMain/>):(<Athentication />)}  
+      {user ? (<BoardMain/>):(<Athentication />)}  
     </>
   )
 }
