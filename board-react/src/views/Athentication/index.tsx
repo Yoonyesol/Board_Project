@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Box } from '@mui/material'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
@@ -14,7 +14,6 @@ export default function Athentication() {
           {authView ? (<SignUp setAuthView={setAuthView} />):(<SignIn setAuthView={setAuthView}/>)}
         </Box>
       </Box>
-      
     </>
     
   )

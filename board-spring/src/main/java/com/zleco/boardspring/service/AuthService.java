@@ -8,12 +8,16 @@ import com.zleco.boardspring.entity.UserEntity;
 import com.zleco.boardspring.repository.UserRepository;
 import com.zleco.boardspring.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service    //Service로 사용하겠다
 public class AuthService {
     @Autowired UserRepository userRepository;
     @Autowired TokenProvider tokenProvider;
+
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); //추가
 
     public ResponseDto<?> signUp(SignUpDto dto){
         String userEmail = dto.getUserEmail();
@@ -28,12 +32,16 @@ public class AuthService {
             return  ResponseDto.setFailed("Data Base Error!");
         }
 
-       //비밀번호가 서로 다르면 fail response 반환
+        //비밀번호가 서로 다르면 fail response 반환
         if(!userPassword.equals(userPasswordCheck))
             return ResponseDto.setFailed("Password does not matched!");
 
         //UserEntity 생성
         UserEntity userEntity = new UserEntity(dto);
+
+        //비밀번호 암호화 (추가)
+        String encodedPassword = passwordEncoder.encode(userPassword);
+        userEntity.setUserPassword(encodedPassword);
 
         //userRepository를 이용해 DB에 Entity 저장
         try{
@@ -43,22 +51,21 @@ public class AuthService {
         }
 
         //성공 시 success response 반환
-       return ResponseDto.setSuccess("SignUp Success!", null);
+        return ResponseDto.setSuccess("SignUp Success!", null);
     }
     public ResponseDto<SignInResponseDto> signIn(SignInDto dto){
         //입력받은 dto값을 원하는 데이터만 찾아서 데이터가 존재하는지 검증
         String userEmail = dto.getUserEmail();
         String userPassword = dto.getUserPassword();
-        try {
-            boolean existed = userRepository.existsByUserEmailAndUserPassword(userEmail, userPassword);
-            if(!existed) return ResponseDto.setFailed("SignIn Information does not matched!");
-        } catch (Exception e){
-            return ResponseDto.setFailed("Data Base Error!");
-        }
 
         UserEntity userEntity = null;
         try {
-            userEntity = userRepository.findById(userEmail).get();
+            userEntity = userRepository.findByUserEmail(userEmail);
+            //이메일 검증
+            if(userEntity == null) return ResponseDto.setFailed("Sign In Failed!");
+            //패스워드 검증
+            if(!passwordEncoder.matches(userPassword, userEntity.getUserPassword()))
+                return ResponseDto.setFailed("Sign In Failed!");
         } catch (Exception e){
             return ResponseDto.setFailed("Data Base Error!");
         }

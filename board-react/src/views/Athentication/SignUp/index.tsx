@@ -39,10 +39,10 @@ export default function SignUp(props: Props) {
       return;
     }
     if (!signUpResponse.result) {
-      alert("로그인에 실패했습니다.");
+      alert("회원가입에 실패했습니다.");
       return;
     }
-    alert("로그인에 성공했습니다.");
+    alert("회원가입에 성공했습니다.");
     setAuthView(false);
   }
   return (
