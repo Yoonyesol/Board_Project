@@ -25,7 +25,7 @@ export default function MainLayout() {
   useEffect(() => {
     const token = cookies.token;
     if (token) getBoard(token);
-    else setBoardResponse('');  //토큰이 없다면 초기화면으로 돌아온다
+    else setBoardResponse('');  //토큰이 없다면 빈값으로 돌아온다
   }, [cookies.token]); //토큰의 상태가 바뀔 때마다 실행
 
   return (
